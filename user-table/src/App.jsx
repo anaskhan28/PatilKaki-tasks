@@ -1,5 +1,5 @@
 import './App.css'
-import UserTable from './component/Navbar'
+import UserTable from './component/UserTable'
 
 
 function App() {
