@@ -8,6 +8,31 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from 'axios';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { tableCellClasses } from '@mui/material/TableCell';
+import { styled } from '@mui/material/styles';
+
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.common.black,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 
 export default function UserTable() {
@@ -35,49 +60,50 @@ if (loading) {
 
   return (
     
-    <>
-    <TableContainer component={Paper}>
-      <Table style={{ minWidth: 650 }} aria-label="simple table">
+    <> 
+    <div className='margin'>
+    <Box component="span" sx={{ m: 4, p:2,  border: '2px dashed grey' }}>
+      <Button>
+      <span>Male users: {maleCount}</span>
+      <span >&nbsp; Female users: {femaleCount}</span>
+      </Button>
+    </Box>
+    </div>
+   <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 700, minHeight: 800 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <TableCell>id</TableCell>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">Email</TableCell>
-            <TableCell align="right">Gender</TableCell>
-            <TableCell align="right">Status</TableCell>
+            <StyledTableCell>ID</StyledTableCell>
+            <StyledTableCell align="right">Name</StyledTableCell>
+            <StyledTableCell align="right">Email</StyledTableCell>
+            <StyledTableCell align="right">Gender</StyledTableCell>
+            <StyledTableCell align="right">Status</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {users.map((user) => (
-            <TableRow
-              key={user.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
+            <StyledTableRow key={user.id}>
+              <StyledTableCell component="th" scope="row">
                 {user.id}
-              </TableCell>
-              <TableCell align="right">{user.name}</TableCell>
-              <TableCell align="right">{user.email}</TableCell>
-              <TableCell align="right">{user.gender}</TableCell>
-             
-              <TableCell align="right">{user.status}</TableCell>
-              
-            </TableRow>
-            
-          ))
-          
-          }
+              </StyledTableCell>
+              <StyledTableCell align="right">{user.name}</StyledTableCell>
+              <StyledTableCell align="right">{user.email}</StyledTableCell>
+              <StyledTableCell align="right">{user.gender}</StyledTableCell>
+              <StyledTableCell align="right">{user.status}</StyledTableCell>
+            </StyledTableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
-    <div>
-      <h1>User Counter</h1>
-      <p>Male users: {maleCount}</p>
-      <p>Female users: {femaleCount}</p>
-    </div>
+    
     </>
+    
   );
 }
+
+
+
+
 
 
 
